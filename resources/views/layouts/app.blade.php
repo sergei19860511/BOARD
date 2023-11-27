@@ -26,7 +26,12 @@
                     @auth('web')
                         <li class="nav-item">
                             <a href="{{ route('home') }}"
-                               class="nav-item nav-link">Мои объявления
+                               class="nav-item nav-link">Мои объявления({{ auth('web')->user()->posts()->count() }})
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('favorite') }}"
+                               class="nav-item nav-link">Избранное({{ auth('web')->user()->favorites()->count() }})
                             </a>
                         </li>
                     @endauth
@@ -39,7 +44,7 @@
                     @endguest
                 </ul>
                 @auth('web')
-                    <p>User ID: {{ auth('web')->user()->id }}</p>
+                    <p>Пользователь: {{ auth('web')->user()->name }}</p>
                     <form class="d-flex" role="search" action="{{ route('logout') }}" method="POST">
                         @csrf
                         <button class="btn btn-outline-danger" type="submit">Выйти</button>

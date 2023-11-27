@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Auth;
@@ -19,6 +20,12 @@ Route::patch('/home/{post}', [HomeController::class, 'update'])->name('home.upda
     ->middleware('can:update,post');
 Route::delete('/home/{post}', [HomeController::class, 'destroy'])->name('home.destroy')
     ->middleware('can:destroy,post');
+
+Route::middleware('auth')->group(function () {
+   Route::get('/favorite', [FavoriteController::class, 'index'])->name('favorite');
+   Route::post('/addFavorite', [FavoriteController::class, 'addToFavorites'])->name('add-to-favorites');
+   Route::delete('/deleteFavorite/{userFavoritePost}', [FavoriteController::class, 'deleteFavorites'])->name('delete-favorites');
+});
 
 
 

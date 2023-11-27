@@ -14,15 +14,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('posts', function (Blueprint $table) {
+        Schema::create('favorites', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(User::class)
                 ->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->string('title', '50');
-            $table->text('text');
-            $table->float('price');
+            $table->integer('post_id');
             $table->timestamps();
-            $table->index('created_at');
         });
     }
 
@@ -33,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('posts');
+        Schema::dropIfExists('favorites');
     }
 };
